@@ -1,0 +1,208 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+button, input, select, textarea, dialog {
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+}
+html,body{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+body{
+    background: #e6e7e8;
+    font-size: 14px;
+    line-height: 1;
+    color: #2f333b;
+}
+.page{
+    overflow: hidden;
+    background-color: #fff;
+}
+.btn-send{
+    text-decoration: none;
+}
+.page-popup{
+    visibility: visible;
+    position: relative;
+    width: 720px;
+    height: 570px;
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-top: calc((100vh - 570px) / 5 * 2);
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+}
+.skin-blue{
+
+}
+.page-certification{
+
+}
+.page-popup .main{
+    width: 100%;
+    height: 100%;
+}
+
+.mod-title{
+
+}
+.page-popup .mod-title .title-normal--base{
+    display: block;
+}
+.page-popup .mod-title .title-normal{
+    height: 44px;
+    padding: 0 10px 0 12px;
+    border-bottom: 3px #EFEFF4 solid;
+    line-height: 44px;
+}
+.page-popup .mod-title .title{
+    float: left;
+    font-size: 18px;
+}
+.page-popup .mod-title .title .name{
+    display: inline-block;
+    max-width: 380px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.page-popup .chat-list{
+    height: 415px;
+}
+.chat-list{
+    position: relative;
+    padding-bottom: 10px;
+    height: 373px;
+    border-bottom: 2px #EFEFF4 solid;
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+
+}
+.chat-list .list-wrap{
+    overflow: auto;
+    width: 100%;
+    max-height: 100%;
+    bottom: 0;
+}
+.chat-list .msg-sys{
+    text-align: center;
+}
+.chat-list .msg-sys .text{
+    padding-bottom: 25px;
+}
+
+.chat-list .msg-time{
+    text-align: center;
+    color: #858d97;
+    font-size: 12px;
+}
+.chat-list .msg-time, .chat-list .msg-sys {
+    padding:25px;
+}
+.chat-list .msg-c2b{
+    padding: 9px 15px 10px 15px;
+    overflow: hidden;
+}
+.chat-list .msg-c2b.msg-image .bubble{
+    float: right;
+    color: #fff;
+    background-color: #0067ed;
+}
+.chat-list .msg-c2b.msg-image .image, .chat-list .msg-b2c.msg-image .image {
+    position: relative;
+    text-align: center;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 14px;
+    background-image: url("https://image.baidu.com/search/detail?z=0&word=%E4%B8%80%E5%BF%B5%E5%B0%98%E4%BA%BA%E5%83%8F&hs=0&pn=1&spn=0&di=0&pi=525391588474088403&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cs=869064507%2C1641072109&os=1891692383%2C150516608&simid=&adpicid=0&lpn=0&fm=&sme=&cg=&bdtype=-1&oriquery=&objurl=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290&fromurl=&gsm=20000000002&catename=pcindexhot&islist=&querylist=");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 42px 30px;
+    -webkit-background-size: 42px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.chat-list .msg-c2b .bubble, .chat-list .msg-b2c .bubble {
+    float: left;
+    position: relative;
+    min-height: 14px;
+    padding: 9px 15px 10px 15px;
+    border-radius: 5px;
+    color: #222;
+    line-height: 1.5;
+    background-color: #f1f2f5;
+}
+.chat-list .msg-c2b .text, .chat-list .msg-b2c .text {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+#mtext {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 22px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: #bdbec1;
+    max-width: 300px;
+}
+.chat-post{
+    height: 109px;
+}
+.chat-post .post-area{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+    line-height: 1.5;
+    border: none;
+}
+.chat-post .act-list{
+    position: relative;
+    height: 47px;
+    padding-left: 5px;
+}
+.skin-blue .chat-post .btn-send.enabled {
+    background-color: #0067ed;
+}
+.chat-post .btn-send.enabled{
+    float: right;
+    margin: 10px 10px 7px;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #f1f2f5;
+    border-radius: 5px;
+    pointer-events: none;
+    color: #bcc1c7;
+}
+.chat-post .btn-send.enabled {
+    pointer-events: auto;
+    color: #fff;
+}
+.mys-sys{
+    text-align: center;
+    margin-bottom: 20px;
+}
+:focus {
+    outline: none;
+}

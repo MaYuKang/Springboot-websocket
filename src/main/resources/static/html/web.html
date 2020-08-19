@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../css/chat.css" rel="stylesheet" type="text/css">
+    <script src="../js/Utils.js"></script>
+</head>
+
+<body>
+    <div class="page page-popup skin-blue page-certification">
+        <div class="main">
+            <div class="mod-title">
+                <div class="title-normal title-normal--base">
+                    <p class="title">
+                        <span class="name">xxx</span>
+                    </p>
+                </div>
+            </div>
+            <div class="chat-list">
+                <div class="list-wrap">
+                    <div class="mys-sys">
+                        <span id="mtext">对方不在线</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-post">
+                <textarea class="post-area" placeholder="请输入，按Enter直接发送消息" maxlength="4500" id="chat"></textarea>
+                <div class="act-list">
+                    <a href="javascript:;" class="btn-send enabled" title="发送" id="mBtn">发送</a>
+                </div>
+            </div>
+            <div class="mod-title"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var flag = false;
+        var Console = {};
+        var mess={};
+        var userList=[];
+        var console = document.querySelector('.list-wrap');
+        var senderId=prompt("请输入你的账号");
+        var message;
+        var pretime=0;
+        var mySend = ()=>{
+            message = document.getElementById('chat').value;
+            let bol = false;
+            if(pretime)
+            {
+                bol = timeMinus(pretime);
+            }
+            pretime = gettime();
+            let msg = ''
+            if(bol || !Utils.getCookie('login'))
+            {
+                msg += `<div class="msg-time">${gettime()}</div>
+                             <div class="msg-c2b msg-image">
+                                <div class="bubble" style="float:right">
+                                    <p class="text">${message}</p>
+                                </div>
+                             </div>`;
+            }
+            else
+            {
+                msg += `<div class="msg-c2b msg-image">
+                                <div class="bubble" style="float:right">
+                                    <p class="text">${message}</p>
+                                </div>
+                        </div>`;
+            }
+            console.innerHTML += msg;
+            while (console.childNodes.length > 25) {
+                console.removeChild(console.firstChild);
+            }
+            console.scrollTop = console.scrollHeight;
+            Utils.setCookie('login',true);
+            Chat.sendMessage();
+        }
+        mBtn.addEventListener('click',mySend);
+        Console.log = (function(message) {
+            let bol = false;
+            if(pretime)
+            {
+                bol = timeMinus(pretime);
+            }
+            pretime = gettime();
+            let msg = ''
+            if(bol || !flag)
+            {
+                msg += `<div class="msg-time">${gettime()}</div>
+                             <div class="msg-c2b msg-image">
+                                <div class="bubble" style="float:left">
+                                    <p class="text">${message}</p>
+                                </div>
+                             </div>`;
+            }
+            else
+            {
+                msg += `<div class="msg-c2b msg-image">
+                                <div class="bubble" style="float:left">
+                                    <p class="text">${message}</p>
+                                </div>
+                        </div>`;
+            }
+            flag = Utils.getCookie('login');
+            console.innerHTML += msg;
+            while (console.childNodes.length > 25) {
+                console.removeChild(console.firstChild);
+            }
+            console.scrollTop = console.scrollHeight;
+        });
+        var Chat = {};
+        Chat.socket = null;
+        Chat.connect = (function(host) {
+            if ('WebSocket' in window) {
+                Chat.socket = new WebSocket(host);
+            } else if ('MozWebSocket' in window) {
+                Chat.socket = new MozWebSocket(host);
+            } else {
+                Console.log('错误');
+                return;
+            }
+
+            Chat.socket.onopen = function() {
+                document.getElementById('chat').onkeydown = function(event) {
+                    if (event.keyCode == 13) {
+                        mySend();
+                    }
+                };
+            };
+
+            Chat.socket.onclose = function() {
+                document.getElementById('chat').onkeydown = null;
+                Console.log('关闭.');
+            };
+
+            Chat.socket.onmessage = function(message) {
+                Console.log(message.data);
+            };
+        });
+
+        Chat.initialize = function() {
+            Chat.connect('ws://127.0.0.1:8080/webSocket/'+senderId);
+        };
+
+        Chat.sendMessage = (function() {
+
+
+            var receiverIds=prompt("请输入接收者账号用逗号分隔");
+
+
+            userList=receiverIds.split(",");
+
+            mess.userList=userList;
+
+            mess.mess=message;
+
+            var strmee=JSON.stringify(mess)
+
+            if (message != '') {
+                //发送
+                Chat.socket.send(strmee);
+                //清空输入框
+                document.getElementById('chat').value='';
+
+            }
+        });
+
+        Chat.initialize();
+        let gettime = ()=>{
+            let time = new Date();
+            let timer = new Date().getTime();
+            let year = time.getFullYear();
+            let month = time.getMonth()+1;
+            let day = time.getDate();
+            let week = time.getDay() === 0 ? 7 :time.getDay();
+            let hours = time.getHours() > 10 ? time.getHours() : '0'+time.getHours().toString();
+            let minutes = time.getMinutes()> 10 ? time.getMinutes() :'0'+ time.getMinutes().toString();
+            let seconds = time.getSeconds() > 10 ?time.getSeconds() : '0'+time.getSeconds().toString();
+            var nowTime = year+"/"+month+"/"+day+" "+hours+":"+minutes+":"+seconds;
+            return nowTime;
+        }
+        function timeMinus(dateTimeStamp){
+            dateTimeStamp = new Date(Date.parse(dateTimeStamp));
+            var date = dateTimeStamp.getTime();
+            var minute=1000*60;      //把分，时，天，周，半个月，一个月用毫秒表示
+            var  now=new Date().getTime();   //获取当前时间毫秒
+            var diffValue=now - date;//时间差
+            var  minC=diffValue / minute;  //计算时间差的分，时，天，周，月
+             if(minC>1){
+                return true;
+            }
+            else return false;
+        }
+    </script>
+</body>
+</html>
